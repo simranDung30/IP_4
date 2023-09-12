@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>T-shirt Order Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1 style="text-align: center;">T-shirt Order Page</h1>
+    <form action="#" method="post" id="orderForm" onsubmit="return validateAndSubmit()">
+        <label for="tagline">Tagline on the Shirt:</label><br>
+        <input type="text" id="tagline" name="tagline" required><br>
+
+        <label for="color">Color:</label><br>
+        <input type="text" id="color" name="color" required><br>
+
+        <label for="size">Size:</label><br>
+        <select id="size" name="size" required>
+            <option value="">Select Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+        </select><br>
+
+        <label for="quantity">Quantity:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1" required><br>
+
+        <label for="mobile">Mobile No:</label><br>
+        <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{9}"><br>
+
+        <label for="message">Message (max 50 characters):</label><br>
+        <input type="text" id="message" name="message" maxlength="50"><br>
+
+        <label for="delivery_date">Delivery Date:</label><br>
+        <input type="date" id="delivery_date" name="delivery_date" required><br>
+
+        <label for="other_details">Other Details of Delivery:</label><br>
+        <textarea id="other_details" name="other_details" rows="4"></textarea><br>
+
+        <input type="submit" value="Place Order">
+    </form>
+
+    <div id="receipt" style="display: none;">
+        <h2>Order Receipt</h2>
+        <p>Date of Receipt: <span id="receiptDate"></span></p>
+        <p>Tagline: <span id="receiptTagline"></span></p>
+        <p>Color: <span id="receiptColor"></span></p>
+        <p>Size: <span id="receiptSize"></span></p>
+        <p>Quantity: <span id="receiptQuantity"></span></p>
+        <p>Mobile No: <span id="receiptMobile"></span></p>
+        <p>Message: <span id="receiptMessage"></span></p>
+        <p>Delivery Date: <span id="receiptDeliveryDate"></span></p>
+        <p>Other Details of Delivery: <span id="receiptOtherDetails"></span></p>
+    </div>
+
+    <script>
+        function validateAndSubmit() {
+            // JavaScript validation
+            const tagline = document.getElementById('tagline').value;
+            const color = document.getElementById('color').value;
+            const size = document.getElementById('size').value;
+            const quantity = document.getElementById('quantity').value;
+            const mobile = document.getElementById('mobile').value;
+            const message = document.getElementById('message').value;
+
+            if (tagline === '' || color === '' || size === '' || quantity === '' || mobile === '' || message === '') {
+                alert('All fields are required.');
+                return false; // Prevent form submission
+            }
+
+            if (mobile.length !== 9) {
+                alert('Mobile number should be 9 digits long.');
+                return false; // Prevent form submission
+            }
+
+            // Create a Date object for the receipt date
+            const receiptDate = new Date();
+
+            // Display the receipt
+            document.getElementById('receiptDate').textContent = receiptDate.toLocaleString();
+            document.getElementById('receiptTagline').textContent = tagline;
+            document.getElementById('receiptColor').textContent = color;
+            document.getElementById('receiptSize').textContent = size;
+            document.getElementById('receiptQuantity').textContent = quantity;
+            document.getElementById('receiptMobile').textContent = mobile;
+            document.getElementById('receiptMessage').textContent = message;
+            document.getElementById('receiptDeliveryDate').textContent = document.getElementById('delivery_date').value;
+            document.getElementById('receiptOtherDetails').textContent = document.getElementById('other_details').value;
+            document.getElementById('receipt').style.display = 'block';
+
+            // Prevent form submission since we're handling it here
+            return false;
+        }
+    </script>
+</body>
+</html>
